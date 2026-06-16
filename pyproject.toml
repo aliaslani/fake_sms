@@ -10,4 +10,5 @@ dependencies = [
     "django-redis>=7.0.0",
     "djangorestframework>=3.17.1",
     "djangorestframework-stubs>=3.17.0",
+    "gunicorn>=26.0.0",
 ]

@@ -21,6 +21,10 @@ djangorestframework==3.17.1
     # via fake-sms
 djangorestframework-stubs==3.17.0
     # via fake-sms
+gunicorn==26.0.0
+    # via fake-sms
+packaging==26.2
+    # via gunicorn
 redis==8.0.0
     # via django-redis
 sqlparse==0.5.5

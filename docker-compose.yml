@@ -22,9 +22,8 @@ services:
     command: >
       sh -c "mkdir -p /app/db &&
              python manage.py migrate &&
-             gunicorn fake_sms.wsgi:application
-             --bind 0.0.0.0:8000
-             --workers 4"
+             python manage.py collectstatic --noinput &&
+             gunicorn fake_sms.wsgi:application --bind 0.0.0.0:8000 --workers 1"
 
 volumes:
   redis_data:
