@@ -1,6 +1,6 @@
 .git
 .env
-.venv              # don't copy local virtualenv into image
+.venv
 __pycache__
 *.pyc
 *.sqlite3

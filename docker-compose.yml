@@ -22,7 +22,7 @@ services:
     command: >
       sh -c "mkdir -p /app/db &&
              python manage.py migrate &&
-             gunicorn myproject.wsgi:application
+             gunicorn fake_sms.wsgi:application
              --bind 0.0.0.0:8000
              --workers 4"
 
