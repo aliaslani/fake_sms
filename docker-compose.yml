@@ -14,7 +14,7 @@ services:
       - "8000:8000"
     env_file: .env
     volumes:
-      - sqlite_data:/app/db          # SQLite DB persistence
+      - sqlite_data:/app/db
       - static_files:/app/staticfiles
     depends_on:
       redis:

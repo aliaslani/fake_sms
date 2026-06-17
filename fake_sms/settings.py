@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+
 import environ
-from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -94,6 +94,20 @@ CACHES = {
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }
+    }
+}
+
+OTP_SEND_IP_RATE = env("OTP_SEND_IP_RATE", default="5/min")
+OTP_SEND_MOBILE_RATE = env("OTP_SEND_MOBILE_RATE", default="3/min")
+OTP_VERIFY_IP_RATE = env("OTP_VERIFY_IP_RATE", default="10/min")
+OTP_VERIFY_MOBILE_RATE = env("OTP_VERIFY_MOBILE_RATE", default="5/min")
+
+REST_FRAMEWORK = {
+    "DEFAULT_THROTTLE_RATES": {
+        "otp_send_ip": OTP_SEND_IP_RATE,
+        "otp_send_mobile": OTP_SEND_MOBILE_RATE,
+        "otp_verify_ip": OTP_VERIFY_IP_RATE,
+        "otp_verify_mobile": OTP_VERIFY_MOBILE_RATE,
     }
 }
 

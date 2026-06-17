@@ -8,6 +8,12 @@ from .serializers import (
     SendOTPSerializer,
     VerifyOTPSerializer,
 )
+from .throttles import (
+    SendOTPIPThrottle,
+    SendOTPMobileThrottle,
+    VerifyOTPIPThrottle,
+    VerifyOTPMobileThrottle,
+)
 
 from core.services.otp_store import OTPStoreService
 
@@ -16,6 +22,7 @@ class SendOTPAPIView(APIView):
 
     authentication_classes = []
     permission_classes = []
+    throttle_classes = [SendOTPIPThrottle, SendOTPMobileThrottle]
 
     def post(self, request):
 
@@ -38,6 +45,7 @@ class VerifyOTPAPIView(APIView):
 
     authentication_classes = []
     permission_classes = []
+    throttle_classes = [VerifyOTPIPThrottle, VerifyOTPMobileThrottle]
 
     def post(self, request):
 
