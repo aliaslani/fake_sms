@@ -16,6 +16,6 @@ RUN pip install --upgrade pip && \
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE 8002
 
-CMD ["gunicorn", "fake_sms.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "1"]
+CMD ["gunicorn", "fake_sms.wsgi:application", "--bind", "0.0.0.0:8002", "--workers", "1"]

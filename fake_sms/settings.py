@@ -14,12 +14,9 @@ from pathlib import Path
 
 import environ
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env(
-    # declare types and defaults
-    DEBUG=(bool, False),
-    ALLOWED_HOSTS=(list, ["localhost"]),
 )
 
 # reads .env file if it exists — in prod, real env vars take precedence
@@ -31,7 +28,8 @@ environ.Env.read_env(BASE_DIR / ".env")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("DJANGO_SECRET_KEY", default="bjc3LkjaNgvFaVlHhEfA84pER1ar9BfiryfZ1CzaebMQPIfF2n")      # no default — will raise if missing
-DEBUG = env("DEBUG", default=True)
+DEBUG = env("DJANGO_DEBUG", default=True)
+print(f"DEBUG: ENV ALLOWED_HOSTS = {env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])}")
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
 
 
@@ -52,6 +50,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

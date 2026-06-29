@@ -8,14 +8,17 @@ services:
       interval: 5s
       retries: 5
 
-  web:
+  fake-sms:
     build: .
     ports:
-      - "8002:8000"
+      - "8002:8002"
     env_file: .env
     volumes:
       - sqlite_data:/app/db
       - static_files:/app/staticfiles
+
+    networks:
+      - backend
     depends_on:
       redis:
         condition: service_healthy
@@ -23,9 +26,13 @@ services:
       sh -c "mkdir -p /app/db &&
              python manage.py migrate &&
              python manage.py collectstatic --noinput &&
-             gunicorn fake_sms.wsgi:application --bind 0.0.0.0:8000 --workers 1"
+             gunicorn fake_sms.wsgi:application --bind 0.0.0.0:8002 --workers 1"
 
 volumes:
   redis_data:
   sqlite_data:
   static_files:
+
+networks:
+  backend:
+    external: true
